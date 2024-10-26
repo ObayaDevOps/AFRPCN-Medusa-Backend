@@ -12,7 +12,7 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
-    workerMode: process.env.MEDUSA_WORKER_MODE,
+    workerMode: (process.env.MEDUSA_WORKER_MODE as "shared" | "worker" | "server") || "server",
     redisUrl: process.env.REDIS_URL,
   },
   admin: {
@@ -23,17 +23,7 @@ module.exports = defineConfig({
       resolve: "@medusajs/medusa/payment",
       options: {
         providers: [
-          {
-            resolve: "./src/modules/payment",
-            id: "pesapal",
-            options: {
-              consumerKey: process.env.PESAPAL_CONSUMER_KEY,
-              consumerSecret: process.env.PESAPAL_CONSUMER_SECRET,
-              ipnId: process.env.PESAPAL_IPN_ID,
-              callbackUrl: process.env.PESAPAL_CALLBACK_URL,
-              isTest: process.env.NODE_ENV !== "production",
-            }
-          }
+
         ]
       }
     },
