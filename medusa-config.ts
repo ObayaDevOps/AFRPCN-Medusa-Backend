@@ -12,15 +12,11 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
-    // Add this line to support worker mode
     workerMode: process.env.MEDUSA_WORKER_MODE,
-    // Add this line to configure Redis URL
     redisUrl: process.env.REDIS_URL,
   },
-  // Add admin configuration
   admin: {
     disable: process.env.DISABLE_MEDUSA_ADMIN === "true",
-    // backendUrl: process.env.MEDUSA_BACKEND_URL,
   },
   modules: [
     {
@@ -41,7 +37,6 @@ module.exports = defineConfig({
         ]
       }
     },
-    // Add Redis modules
     {
       resolve: "@medusajs/medusa/cache-redis",
       options: {
